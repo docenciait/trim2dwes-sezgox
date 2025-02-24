@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block content %}
+
+    <h1>Lista de denuncias</h1>
+    <div style="display: flex; flex-wrap: wrap; gap: 16px;">
+        {% for denuncia in denuncias %}
+        <div class="card">
+            <h4>{{ denuncia.titulo }}</h4>
+            <p>{{ denuncia.descripcion }}</p>
+            <p>{{ denuncia.fecha_creacion }}</p>
+            <p>{{ denuncia.estado }}</p>
+            <p>{{ denuncia.categoria }}</p>
+            <img src="{{ denuncia.imagen.url }}" alt="{{ denuncia.titulo }}">
+            {% if request.user == denuncia.usuario %}
+                <a href="{% url 'eliminar_denuncia.' denuncia.id %}" style="color: red; font-weight: 500; ">Eliminar</a>
+                <a href="{% url 'editar_denuncia.' denuncia.id %}" style="color: green; font-weight: 500; ">Editar</a>
+            {% endif %}
+        </div>
+    {% endfor %}
+    </div>
+{% endblock content %}

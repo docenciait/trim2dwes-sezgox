@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block content %}
+<form action="" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <label for="titulo">Titulo:</label>
+    <input type="text" name="titulo" id="titulo" required maxlength="255" minlength="5" value="{{ denuncia.titulo }}">
+    <label for="descripcion">Descripción:</label>
+    <textarea name="descripcion" id="descripcion" required>{{ denuncia.descripcion }}</textarea>
+    <select name="categoria" id="categoria" >
+        <option value="{{ denuncia.categoria }}" selected>{{ denuncia.categoria }}</option>
+        {% for cat in categorias %}
+            {% if cat.1 != denuncia.categoria %}
+                <option value="{{ cat.1 }}">{{ cat.1 }}</option>
+            {% endif %}
+        {% endfor %}
+    </select>
+    <label for="">Estado:</label>
+    <div>
+        <label for="pendiente">Pendiente</label>
+        {% if denuncia.estado == 'pendiente' %}
+            <input type="radio" name="estado" id="pendiente" value="pendiente" checked>
+        {% else %}
+            <input type="radio" name="estado" id="pendiente" value="pendiente">
+        {% endif %}
+        <label for="procesado">Procesado</label>
+        {% if denuncia.estado == 'procesado' %}
+            <input type="radio" name="estado" id="procesado" value="procesado" checked>
+        {% else %}
+            <input type="radio" name="estado" id="procesado" value="procesado">
+        {% endif %}
+        <label for="finalizado">Finalizado</label>
+        {% if denuncia.estado == 'finalizado' %}
+            <input type="radio" name="estado" id="finalizado" value="finalizado" checked>
+        {% else %}
+            <input type="radio" name="estado" id="finalizado" value="finalizado">
+        {% endif %}
+    </div>
+    <label for="imagen">Imagen:</label>
+    <input type="file" name="imagen" id="imagen">
+
+    <button>Actualizar</button>
+</form>
+{% endblock content %}
