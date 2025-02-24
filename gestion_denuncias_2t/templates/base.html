@@ -1,0 +1,31 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}Gestión de Denuncias{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <header>
+        <h1>Gestión de Denuncias Ciudadanas</h1>
+        <nav>
+            <ul>
+                {% if user.is_authenticated %}
+                    <li><a href="{% url 'lista_denuncias' %}">Denuncias</a></li>
+                    <li><a href="{% url 'crear_denuncia' %}">Crear denuncia</a></li>
+                    <li><a href="{% url 'logout' %}">Cerrar sesión</a></li>
+                {% else %}
+                    <li><a href="{% url 'login' %}">Iniciar sesión</a></li>
+                    <li><a href="{% url 'registro' %}">Registrarse</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </header>
+    <div class="content">
+        {% block content %}{% endblock %}
+    </div>
+    <footer>
+        <p>&copy; 2025 Gestión de Denuncias - IES Isidra Guzmán</p>
+    </footer>
+</body>
+</html>
